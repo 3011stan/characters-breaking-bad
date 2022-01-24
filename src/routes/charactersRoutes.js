@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const { createCharacter } = require('../controllers/charactersControllers');
+const { createCharacter, getAllChars } = require('../controllers/charactersControllers');
 
 const { 
   checksAlreadyExists,
@@ -11,5 +11,7 @@ const {
 } = require('../middlewares/charactersMiddlewares');
 
 router.post('/', checksNameAuthenticity, checksAlreadyExists, addEpsToReq, createCharacter);
+
+router.get('/', getAllChars);
 
 module.exports = router;
