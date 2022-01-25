@@ -32,7 +32,7 @@ const checksAlreadyExists = async (req, res, next) => {
 
 const addEpsToReq = async (req, res, next) => {
   const { character } = req.body;
-  const epsOfThatCharacter = await filterEpisodesByCharacters(character.name);
+  const epsOfThatCharacter = await filterEpisodesByCharacters(character.name, character.nickname);
   req.body.character.episodeParticipation = epsOfThatCharacter;
   if (epsOfThatCharacter) {
     return next();
