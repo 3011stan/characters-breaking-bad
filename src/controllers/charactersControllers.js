@@ -17,7 +17,7 @@ const createCharacter = rescue(async (req, res) => {
     return res.status(STATUS_CREATE).json({ success: true, personagem: character });
   }
 
-  return res.status(STATUS_BAD_REQUEST).json({ success: false, message: 'Erro desconhecido.' });
+  return res.status(STATUS_BAD_REQUEST).json({ success: false });
 });
 
 const getAllChars = rescue(async (_req, res) => {
@@ -36,7 +36,7 @@ const deleteCharacter = async (req, res) => {
     return res.status(STATUS_NO_CONTENT).send();
   }
 
-  return res.status(STATUS_BAD_REQUEST).json({ success: false, message: 'Erro desconhecido.' });
+  return res.status(STATUS_BAD_REQUEST).json({ success: false });
 }
 
 const editCharacter = async (req, res) => {

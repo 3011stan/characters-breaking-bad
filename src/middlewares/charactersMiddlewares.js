@@ -16,7 +16,7 @@ const checksNameAuthenticity = async (req, res, next) => {
     return next();
   }
   
-  return res.status(STATUS_NOT_FOUND).json({ message: 'Este personagem não existe.' });
+  return res.status(STATUS_NOT_FOUND).json({ success: false });
 }
 
 const checksAlreadyExists = async (req, res, next) => {
@@ -36,7 +36,7 @@ const addEpsToReq = async (req, res, next) => {
   if (epsOfThatCharacter) {
     return next();
   }
-  return res.status(STATUS_NOT_FOUND).json({ message: 'Erro ao buscar episódios.' });
+  return res.status(STATUS_NOT_FOUND).json({ success: false });
 }
 
 const verifyExists = async (req, res, next) => {
