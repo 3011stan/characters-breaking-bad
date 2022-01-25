@@ -25,8 +25,16 @@ const getAllModel = async () => {
   return allChars;
 }
 
+const deleteCharModel = async (id) => {
+  const result = await connection().then((db) => db
+    .collection('characters').deleteOne({ "char_id": id }))
+    .then((res) => res).catch((error) => console.log(error));
+  return result.deletedCount > 0;
+}
+
 module.exports = {
   createCharacterModel,
   findByIdModel,
   getAllModel,
+  deleteCharModel,
 };
