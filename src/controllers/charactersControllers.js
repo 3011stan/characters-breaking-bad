@@ -22,9 +22,8 @@ const getAllChars = rescue(async (_req, res) => {
   if(allChars) {
     return res.status(STATUS_OK).json({ characters: allChars });
   }
-
   return res.status(STATUS_BAD_REQUEST).json({ message: 'Erro ao buscar personagens.' });
-})
+});
 
 module.exports = {
   createCharacter,
