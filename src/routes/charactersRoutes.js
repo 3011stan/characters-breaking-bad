@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const { createCharacter, getAllChars } = require('../controllers/charactersControllers');
+const { createCharacter, getAllChars, deleteCharacter } = require('../controllers/charactersControllers');
 
 const { 
   checksAlreadyExists,
@@ -13,5 +13,7 @@ const {
 router.post('/', checksNameAuthenticity, checksAlreadyExists, addEpsToReq, createCharacter);
 
 router.get('/', getAllChars);
+
+router.delete('/:id', deleteCharacter);
 
 module.exports = router;

@@ -22,7 +22,6 @@ const checksNameAuthenticity = async (req, res, next) => {
 const checksAlreadyExists = async (req, res, next) => {
   const { character } = req.body;
   const exists = await serviceCheckCharExists(character['char_id']);
-  console.log('Valor de "exists"' + exists);
   if (!exists) {
     return next();
   }
