@@ -34,8 +34,6 @@ const serviceDeleteCharacter = async (id) => {
 
 const serviceEditCharacter = async (id, name, nickname, img) => {
   const updatedCharacter = await editCharModel(id, name, nickname, img);
-  console.log(`${id} - ${name} - ${nickname} - ${img}`);
-  console.log(updatedCharacter);
   if(updatedCharacter) {
     return updatedCharacter;
   }

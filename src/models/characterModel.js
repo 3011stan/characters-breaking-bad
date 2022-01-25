@@ -49,7 +49,6 @@ const editCharModel = async (id, name, nickname, img) => {
   const result = await connection().then((db) => db
     .collection('characters').updateOne(filter, updateCharacter))
     .then((res) => res).catch((error) => console.log(error));
-  console.log(result.modifiedCount);
   if (result.modifiedCount > 0) {
     return {
       success: true,
