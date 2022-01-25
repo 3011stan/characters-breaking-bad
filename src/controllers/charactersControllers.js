@@ -1,6 +1,6 @@
 const rescue = require('express-rescue');
 
-const { STATUS_CREATE, STATUS_BAD_REQUEST, STATUS_OK, STATUS_NO_CONTENT, STATUS_UNAUTHORIZED, STATUS_UNPROCESSABLE } = require('../utils/httpStatus');
+const { STATUS_CREATE, STATUS_BAD_REQUEST, STATUS_OK, STATUS_NO_CONTENT, STATUS_UNAUTHORIZED, STATUS_UNPROCESSABLE, STATUS_NOT_FOUND } = require('../utils/httpStatus');
 
 const { 
   serviceCreateCharacter,
@@ -36,7 +36,7 @@ const deleteCharacter = async (req, res) => {
     return res.status(STATUS_NO_CONTENT).send();
   }
 
-  return res.status(STATUS_BAD_REQUEST).json({ success: false });
+  return res.status(STATUS_NOT_FOUND).json({ success: false });
 }
 
 const editCharacter = async (req, res) => {

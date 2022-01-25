@@ -1,6 +1,6 @@
 const { serviceCheckCharExists } = require("../services/charactersServices");
 const { filterEpisodesByCharacters } = require("../utils/filters");
-const { STATUS_CONFLICT, STATUS_NOT_FOUND } = require("../utils/httpStatus");
+const { STATUS_CONFLICT, STATUS_NOT_FOUND, STATUS_BAD_REQUEST } = require("../utils/httpStatus");
 const { getCharacterByName } = require("../utils/useBreakingBadApi");
 
 
@@ -36,7 +36,7 @@ const addEpsToReq = async (req, res, next) => {
   if (epsOfThatCharacter) {
     return next();
   }
-  return res.status(STATUS_NOT_FOUND).json({ success: false });
+  return res.status(STATUS_BAD_REQUEST).json({ success: false });
 }
 
 const verifyExists = async (req, res, next) => {

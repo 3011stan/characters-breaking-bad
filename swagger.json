@@ -1,0 +1,152 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Characters Breaking Bad",
+    "description": "Documentação da api dos personagens da série BreakingBad",
+    "version": "1.0.0"
+  },
+  "basePath": "/",
+  "paths": {
+    "/characters": {
+      "get": {
+        "tags": ["Characters"],
+        "description": "Busca todos os personagens cadastrados no banco.",
+        "sumary": "Retorna todos personagnes.",
+
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "Erro ao buscar personagens."
+          }
+        }
+      },
+
+      "post": {
+        "tags": ["Characters"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "nome": "Walter White"
+                }
+              }
+            }
+          }
+        },
+
+        "responses": {
+          "201": {
+            "description": "Personagem criado."
+          },
+          "404": {
+            "description": "Não existe este personagem em BreakingBad."
+          },
+          "409": {
+            "description": "Este personagem já está cadastrado no banco."
+          },
+          "400": {
+            "description": "Não foi possível buscar os episódios ou erro interno."
+          }
+        }
+      }
+    },
+    "/characters/{id}": {
+      "get": {
+        "tags": ["Characters"],
+        "description": "Busca personagem pelo id.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "404": {
+            "description": "Personagem não encontrado no banco."
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Characters"],
+        "description": "Deleta personagem através do id.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Excluído com sucesso."
+          },
+          "404": {
+            "description": "Personagem não encontrado."
+          }
+        }
+      },
+      "put": {
+        "tags": ["Characters"],
+        "description": "Edita personagem através do id. É possível alterar o nome, nickname e url da imagem, no entanto, só serão alterado os campos passados.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "nickname": {
+                    "type": "string"
+                  },
+                  "img": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Walter",
+                  "nickname": "Professor"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "404": {
+            "description": "Personagem não encontrado no banco."
+          },
+          "422": {
+            "description": "Problema ao editar personagem."
+          } 
+        }
+      }
+    }
+  }
+}
