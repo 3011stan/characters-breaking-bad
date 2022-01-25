@@ -1,10 +1,12 @@
 const rescue = require('express-rescue');
 
-const { STATUS_CREATE, STATUS_BAD_REQUEST, STATUS_OK } = require('../utils/httpStatus');
+const { STATUS_CREATE, STATUS_BAD_REQUEST, STATUS_OK, STATUS_NO_CONTENT, STATUS_UNAUTHORIZED } = require('../utils/httpStatus');
 
-const { serviceCreateCharacter } = require('../services/charactersServices');
+const { 
+  serviceCreateCharacter,
+  serviceGetAllChars,
+  serviceDeleteCharacter } = require('../services/charactersServices');
 const { MSG_SUCCESSFULLY_CREATED } = require('../utils/messagesPortuguese');
-const { serviceGetAllChars } = require('../services/charactersServices');
 
 const createCharacter = rescue(async (req, res) => {
   const { character } = req.body;
@@ -22,10 +24,22 @@ const getAllChars = rescue(async (_req, res) => {
   if(allChars) {
     return res.status(STATUS_OK).json({ characters: allChars });
   }
+
   return res.status(STATUS_BAD_REQUEST).json({ message: 'Erro ao buscar personagens.' });
 });
+
+const deleteCharacter = async (req, res) => {
+  const { id } = req.params;
+  const success = await serviceDeleteCharacter(parseInt(id));
+  if(success) {
+    return res.status(STATUS_NO_CONTENT).send();
+  }
+
+  return res.status(STATUS_BAD_REQUEST).json({ message: 'Erro desconhecido.' });
+}
 
 module.exports = {
   createCharacter,
   getAllChars,
+  deleteCharacter,
 };
