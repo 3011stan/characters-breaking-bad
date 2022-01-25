@@ -2,7 +2,8 @@ const {
   createCharacterModel,
   findByIdModel,
   getAllModel,
-  deleteCharModel 
+  deleteCharModel, 
+  editCharModel
 } = require("../models/characterModel");
 
 const serviceCreateCharacter = async ({ character }) => {
@@ -16,12 +17,12 @@ const serviceCheckCharExists = async (id) => {
     return true;
   }
   return false;
-}
+};
 
 const serviceGetAllChars = async () => {
   const allChars = await getAllModel();
   return allChars;
-}
+};
 
 const serviceDeleteCharacter = async (id) => {
   const deletedChar = await deleteCharModel(id);
@@ -29,11 +30,29 @@ const serviceDeleteCharacter = async (id) => {
     return true;
   }
   return false;
-}
+};
+
+const serviceEditCharacter = async (id, name, nickname, img) => {
+  const updatedCharacter = await editCharModel(id, name, nickname, img);
+  console.log(`${id} - ${name} - ${nickname} - ${img}`);
+  console.log(updatedCharacter);
+  if(updatedCharacter) {
+    return updatedCharacter;
+  }
+
+  return false;
+};
+
+const serviceGetCharById = async (id) => {
+  const foundChar = await findByIdModel(id);
+  return foundChar;
+};
 
 module.exports = {
   serviceCreateCharacter,
   serviceCheckCharExists,
   serviceGetAllChars,
   serviceDeleteCharacter,
+  serviceEditCharacter,
+  serviceGetCharById,
 };

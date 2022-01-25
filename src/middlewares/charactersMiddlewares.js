@@ -39,8 +39,18 @@ const addEpsToReq = async (req, res, next) => {
   return res.status(STATUS_NOT_FOUND).json({ message: 'Erro ao buscar episódios.' });
 }
 
+const verifyExists = async (req, res, next) => {
+  const { id } = req.params;
+  const exists = await serviceCheckCharExists(parseInt(id));
+  if (exists) {
+    return next();
+  }
+  return res.status(STATUS_NOT_FOUND).json({ success: false });
+}
+
 module.exports = {
   checksNameAuthenticity,
   checksAlreadyExists,
   addEpsToReq,
+  verifyExists,
 };

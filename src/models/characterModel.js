@@ -27,9 +27,36 @@ const getAllModel = async () => {
 
 const deleteCharModel = async (id) => {
   const result = await connection().then((db) => db
-    .collection('characters').deleteOne({ "char_id": id }))
+    .collection('characters').deleteOne({ 'char_id': id }))
     .then((res) => res).catch((error) => console.log(error));
   return result.deletedCount > 0;
+}
+
+const editCharModel = async (id, name, nickname, img) => {
+  const filter = { 'char_id': id };
+  const oldChar = await findByIdModel(id);
+  const newCharacter = {
+    char_id: id,
+    name: name || oldChar.name,
+    nickname: nickname || oldChar.nickname,
+    img: img || oldChar.img,
+  };
+
+  const updateCharacter = {
+    $set: newCharacter,
+  };
+
+  const result = await connection().then((db) => db
+    .collection('characters').updateOne(filter, updateCharacter))
+    .then((res) => res).catch((error) => console.log(error));
+  console.log(result.modifiedCount);
+  if (result.modifiedCount > 0) {
+    return {
+      success: true,
+      updateCharacter: newCharacter
+    };
+  }
+  return false;
 }
 
 module.exports = {
@@ -37,4 +64,5 @@ module.exports = {
   findByIdModel,
   getAllModel,
   deleteCharModel,
+  editCharModel,
 };
