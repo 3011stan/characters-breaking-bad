@@ -19,7 +19,7 @@ const findByIdModel = async (id) => {
 
 const getAllModel = async () => {
   const allChars = await connection().then((db) => db
-    .collection('characters').find({}).toArray())
+    .collection('characters').find({}).sort( { name: 1 }).toArray())
     .then((res) => res).catch((error) => console.log(error));
   
   return allChars;
